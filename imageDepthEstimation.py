@@ -25,8 +25,8 @@ if __name__ == '__main__':
     color_disparity = draw_disparity(disparity_map)
     color_disparity = cv2.resize(color_disparity, (left_img.shape[1],left_img.shape[0]))
 
-    cobined_image = np.hstack((left_img, right_img, color_disparity))
-    cobined_image = cv2.putText(cobined_image, f'{highres_stereo_depth.fps} fps', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2, cv2.LINE_AA)
+    combined_image = np.hstack((left_img, right_img, color_disparity))
+    combined_image = cv2.putText(combined_image, f'{highres_stereo_depth.fps} fps', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2, cv2.LINE_AA)
 
     cv2.imwrite("out.jpg", cobined_image)
 
