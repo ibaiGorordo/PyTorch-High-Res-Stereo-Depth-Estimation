@@ -51,9 +51,10 @@ while cap.isOpened():
 	color_depth = draw_depth(depth_map, max_distance)
 
 	color_depth = cv2.resize(color_depth, (left_img.shape[1],left_img.shape[0]))
-	cobined_image = np.hstack((left_img,color_real_depth, color_depth))
+	combined_image = np.hstack((left_img,color_real_depth, color_depth))
+	combined_image = cv2.putText(combined_image, f'{highres_stereo_depth.fps} fps', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2, cv2.LINE_AA)
 
-	cv2.imshow("Estimated depth", cobined_image)
+	cv2.imshow("Estimated depth", combined_image)
 
 	# Press key q to stop
 	if cv2.waitKey(1) == ord('q'):
