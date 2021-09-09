@@ -1,5 +1,6 @@
 import cv2
 import torch
+import time
 import numpy as np
 import torch.nn as nn
 from PIL import Image
@@ -17,6 +18,10 @@ class HighResStereo():
 		self.use_gpu = use_gpu
 		self.config = config
 		self.camera_config = camera_config
+
+		self.fps = 0
+		self.timeLastPrediction = time.time()
+		self.frameCounter = 0
 
 		# Initialize model
 		self.model = self.initialize_model(model_path, config, use_gpu)
@@ -48,6 +53,9 @@ class HighResStereo():
 		return net
 
 	def estimate_disparity(self, left_img, right_img):
+
+		# Update fps calculator
+		self.updateFps()
 
 		left_tensor = self.prepare_input(left_img)
 		right_tensor = self.prepare_input(right_img)
@@ -89,7 +97,7 @@ class HighResStereo():
 		disparity = torch.squeeze(disparity).data.cpu().numpy()
 		entropy = torch.squeeze(entropy).data.cpu().numpy()
 
-		invalid = disparity == np.inf
+		invalid = np.logical_or(disparity == np.inf,disparity==0)
 		disparity[invalid] = np.inf
 
 		disparity = disparity.astype(np.uint8)
@@ -98,12 +106,18 @@ class HighResStereo():
 
 	def get_depth(self):
 		return self.camera_config.f*self.camera_config.baseline/self.disparity_map
+
+	def updateFps(self):
+		updateRate = 1
+		self.frameCounter += 1
+
+		# Every updateRate frames calculate the fps based on the ellapsed time
+		if self.frameCounter == updateRate:
+			timeNow = time.time()
+			ellapsedTime = timeNow - self.timeLastPrediction
+
+			self.fps = int(updateRate/ellapsedTime)
+			self.frameCounter = 0
+			self.timeLastPrediction = timeNow
 	
-
-
-
-
-
-
-
 
