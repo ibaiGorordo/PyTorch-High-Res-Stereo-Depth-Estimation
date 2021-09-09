@@ -39,7 +39,7 @@ Download the pretrained model from the [original repository](https://github.com/
  python drivingStereoTest.py
  ```
 <!--  
-# [Inference video Example]() 
+# [Inference video Example](https://youtu.be/kG_c32pFRR8) 
  ![High res stereo depth estimation Pytorch]() -->
 
 # References:
