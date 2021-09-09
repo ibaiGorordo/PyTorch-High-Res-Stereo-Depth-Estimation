@@ -38,9 +38,9 @@ Download the pretrained model from the [original repository](https://github.com/
  ```
  python drivingStereoTest.py
  ```
-<!--  
+ 
 # [Inference video Example](https://youtu.be/kG_c32pFRR8) 
- ![High res stereo depth estimation Pytorch]() -->
+ ![High res stereo depth estimation Pytorch](https://github.com/ibaiGorordo/PyTorch-High-Res-Stereo-Depth-Estimation/blob/main/docs/img/highresStereoDepthEstimation.gif)
 
 # References:
 * High Res Sterep model: https://github.com/gengshan-y/high-res-stereo
