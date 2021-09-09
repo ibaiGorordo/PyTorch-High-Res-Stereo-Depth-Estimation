@@ -6,7 +6,7 @@ import glob
 from highres_stereo import HighResStereo
 from highres_stereo.utils_highres import Config, CameraConfig, draw_disparity, draw_depth, QualityLevel
 
-out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (881*3,400))
+# out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (881*3,400))
 
 # Get image list
 left_images = glob.glob('DrivingStereo images/left/*.jpg')
@@ -48,12 +48,12 @@ for left_path, right_path, depth_path in zip(left_images[:], right_images[:], de
 	cobined_image = np.hstack((left_img,color_real_depth, color_depth))
 	cobined_image = cv2.putText(cobined_image, f'{highres_stereo_depth.fps} fps', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2, cv2.LINE_AA)
 
-	out.write(cobined_image)
+	# out.write(cobined_image)
 	cv2.imshow("Estimated depth", cobined_image)
 
 	# Press key q to stop
 	if cv2.waitKey(1) == ord('q'):
 		break
 
-out.release()
+# out.release()
 cv2.destroyAllWindows()
