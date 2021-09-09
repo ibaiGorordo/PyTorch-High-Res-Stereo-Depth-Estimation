@@ -53,15 +53,15 @@ class HighResStereo():
 		return net
 
 	def estimate_disparity(self, left_img, right_img):
-
-		# Update fps calculator
-		self.updateFps()
-
+		self.timeStartPrediction = time.time()
+	
 		left_tensor = self.prepare_input(left_img)
 		right_tensor = self.prepare_input(right_img)
 
 		# Perform inference on the image
 		self.disparity_map, entropy = self.inference(left_tensor, right_tensor)
+
+		self.updateFps()
 
 		return self.disparity_map
 
@@ -105,19 +105,10 @@ class HighResStereo():
 		return disparity, entropy
 
 	def get_depth(self):
-		return self.camera_config.f*self.camera_config.baseline/self.disparity_map
+		return (self.camera_config.f*self.camera_config.baseline)/self.disparity_map
 
 	def updateFps(self):
-		updateRate = 1
-		self.frameCounter += 1
 
-		# Every updateRate frames calculate the fps based on the ellapsed time
-		if self.frameCounter == updateRate:
-			timeNow = time.time()
-			ellapsedTime = timeNow - self.timeLastPrediction
-
-			self.fps = int(updateRate/ellapsedTime)
-			self.frameCounter = 0
-			self.timeLastPrediction = timeNow
-	
-
+		ellapsedTime = time.time() - self.timeStartPrediction
+		self.fps = int(1/ellapsedTime)
+			
