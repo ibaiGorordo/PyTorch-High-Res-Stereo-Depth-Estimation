@@ -43,7 +43,7 @@ Download the pretrained model from the [original repository](https://github.com/
  ![High res stereo depth estimation Pytorch](https://github.com/ibaiGorordo/PyTorch-High-Res-Stereo-Depth-Estimation/blob/main/docs/img/highresStereoDepthEstimation.gif)
 
 # References:
-* High Res Sterep model: https://github.com/gengshan-y/high-res-stereo
+* High Res Stereo model: https://github.com/gengshan-y/high-res-stereo
 * DrivingStereo dataset: https://drivingstereo-dataset.github.io/
 * Original paper: https://arxiv.org/abs/1912.06704
  
